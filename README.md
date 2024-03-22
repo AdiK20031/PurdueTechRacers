@@ -28,12 +28,12 @@ TBD
 
 Please put comments in your code with your name and what your code does. 
 
-[Documenation for QLabs and QCar](https://qlabs.quanserdocs.com/en/latest/)\
-[Documentation for keras](https://keras.io/api/)\
-https://thomasfermi.github.io/Algorithms-for-Automated-Driving/Introduction/intro.html\
-https://github.com/Amin-Tgz/awesome-CARLA?tab=readme-ov-file\
+[Documenation for QLabs and QCar](https://qlabs.quanserdocs.com/en/latest/) \
+[Documentation for keras](https://keras.io/api/) \
+https://thomasfermi.github.io/Algorithms-for-Automated-Driving/Introduction/intro.html \
+https://github.com/Amin-Tgz/awesome-CARLA?tab=readme-ov-file \
 
-To commit to the git 
+To commit to the git\
 `git add *`\
 `git commit -m "Commit message`\
 `git push origin main`\
