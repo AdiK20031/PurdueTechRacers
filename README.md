@@ -16,6 +16,7 @@ Marked below is a checklist for the tasks these 3 teams will have to accomplish.
 - [ ] Creating a model and feeding these images into a model
 - [ ] Create a loop to break car if obstacle is detected.
 
+A script has been created to generate training images, simply run either stopsign.py or traffic_light.py and you will be able to commit pictures. Please make sure to pull the latest files from git using `git pull` before adding new images in order to not overwrite files.
 ## Car control
 
 TBD
@@ -39,7 +40,7 @@ To pull from git\
 
 To commit to the git\
 `git add *`\
-`git commit -m "Commit message`\
+`git commit -m "Commit message"`\
 `git push origin main`
 
 Please email the Team Capitan or Vice Team Capitan if you have any questions! 
