@@ -31,7 +31,11 @@ Please put comments in your code with your name and what your code does.
 [Documenation for QLabs and QCar](https://qlabs.quanserdocs.com/en/latest/) \
 [Documentation for keras](https://keras.io/api/) \
 https://thomasfermi.github.io/Algorithms-for-Automated-Driving/Introduction/intro.html \
-https://github.com/Amin-Tgz/awesome-CARLA?tab=readme-ov-file 
+https://github.com/Amin-Tgz/awesome-CARLA?tab=readme-ov-file \
+https://www.labellerr.com/blog/real-time-lane-detection-for-self-driving-cars-using-opencv/ 
+
+To pull from git\
+`git pull` 
 
 To commit to the git\
 `git add *`\
