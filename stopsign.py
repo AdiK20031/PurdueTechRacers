@@ -53,25 +53,37 @@ def main():
 
 def stop_sign(qlabs):
 
-    """This method demonstrates some basic commands with the stop sign class"""
+    
+    #This code asks the user if they want random coordinate generation
     RandOrNot = int(input('Do you want random coordinate generation? 0 or 1. This may generate signs on the road in City or Cityscape but has no issues on Studio: '))
+    #If the user doesn't want random generation ask for input
     if RandOrNot == 0:
         X = float(input('Enter X Value: '))
         Y = float(input('Enter Y Value: '))
+    #Generate random numbers
     elif RandOrNot == 1:
         X = rand.randint(-250,250)
         Y = rand.randint(-250,250)
-    roadWidth = float(input('Enter roadLength: '))
+    #Width of the road, basically asks where the center of the car is
+    roadWidth = float(input('Enter road width where the car is: '))
+    #How far away is the car from the stop sign
     distanceFromSign = float(input('How far away should the camera be from the stop sign: '))
-    Rotation = int(input('Rotation? (1 for none, 2 for pi/2, 3 pi, 4 for 3pi/2) '))
-    
+    #Asks the user for the rotation of the stop sign
+    Rotation = int(input('What is the rotation of the stop sign? (1 for none, 2 for pi/2, 3 pi, 4 for 3pi/2) '))
+    #Generates the stop sign object
     stop = QLabsStopSign(qlabs)
+    #Generate the camera object
     stopSignCamera = QLabsFreeCamera(qlabs)
-    angleToStopSign = math.atan(roadLength/distanceFromSign) + rand.uniform(-math.pi/4, math.pi/4)
+    #Locates where the stop sign is and slightly changes the angle randomly
+    angleToStopSign = math.atan(roadWidth/distanceFromSign) + rand.uniform(-math.pi/4, math.pi/4)
 
+    #If Else loop that changes camera orientation based on the rotation of the sign
     if(Rotation == 1):
+        #Spawns in camera object
         stopSignCamera.spawn_id(actorNumber=1, location=[X+distanceFromSign, Y+roadWidth, 2], rotation=[0, 0, math.pi + angleToStopSign])
+        #Spawns in stop sign object
         stop.spawn_id(actorNumber=1, location=[X, Y, 0.0], rotation=[0,0, 0], scale=[1,1,1], configuration=0, waitForConfirmation=True)
+        #Possesses camera
         stopSignCamera.possess()
     elif(Rotation == 2):
         stopSignCamera.spawn_id(actorNumber=1, location=[X+roadWidth, Y+distanceFromSign, 2], rotation=[0, 0, ((3 * math.pi)/2) - angleToStopSign])
