@@ -54,7 +54,7 @@ def main():
 def stop_sign(qlabs):
 
     """This method demonstrates some basic commands with the stop sign class"""
-    RandOrNot = bool(input('Do you want random coordinate generation? 0 or 1. This may generate signs on the road in City or Cityscape but has no issues on Studio: '))
+    RandOrNot = int(input('Do you want random coordinate generation? 0 or 1. This may generate signs on the road in City or Cityscape but has no issues on Studio: '))
     if RandOrNot == 0:
         X = float(input('Enter X Value: '))
         Y = float(input('Enter Y Value: '))
