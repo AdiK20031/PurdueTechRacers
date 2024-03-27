@@ -61,7 +61,7 @@ def stop_sign(qlabs):
     elif RandOrNot == 1:
         X = rand.randint(-250,250)
         Y = rand.randint(-250,250)
-    roadLength = float(input('Enter roadLength: '))
+    roadWidth = float(input('Enter roadLength: '))
     distanceFromSign = float(input('How far away should the camera be from the stop sign: '))
     Rotation = int(input('Rotation? (1 for none, 2 for pi/2, 3 pi, 4 for 3pi/2) '))
     
@@ -70,19 +70,19 @@ def stop_sign(qlabs):
     angleToStopSign = math.atan(roadLength/distanceFromSign) + rand.uniform(-math.pi/4, math.pi/4)
 
     if(Rotation == 1):
-        stopSignCamera.spawn_id(actorNumber=1, location=[X+distanceFromSign, Y+roadLength, 2], rotation=[0, 0, math.pi + angleToStopSign])
+        stopSignCamera.spawn_id(actorNumber=1, location=[X+distanceFromSign, Y+roadWidth, 2], rotation=[0, 0, math.pi + angleToStopSign])
         stop.spawn_id(actorNumber=1, location=[X, Y, 0.0], rotation=[0,0, 0], scale=[1,1,1], configuration=0, waitForConfirmation=True)
         stopSignCamera.possess()
     elif(Rotation == 2):
-        stopSignCamera.spawn_id(actorNumber=1, location=[X+roadLength, Y+distanceFromSign, 2], rotation=[0, 0, ((3 * math.pi)/2) - angleToStopSign])
+        stopSignCamera.spawn_id(actorNumber=1, location=[X+roadWidth, Y+distanceFromSign, 2], rotation=[0, 0, ((3 * math.pi)/2) - angleToStopSign])
         stop.spawn_id(actorNumber=1, location=[X, Y, 0.0], rotation=[0,0, math.pi/2], scale=[1,1,1], configuration=0, waitForConfirmation=True)
         stopSignCamera.possess()
     elif(Rotation == 3):
-        stopSignCamera.spawn_id(actorNumber=1, location=[X-distanceFromSign, Y-roadLength, 2], rotation=[0, 0, angleToStopSign])
+        stopSignCamera.spawn_id(actorNumber=1, location=[X-distanceFromSign, Y-roadWidth, 2], rotation=[0, 0, angleToStopSign])
         stop.spawn_id(actorNumber=1, location=[X, Y, 0.0], rotation=[0,0, math.pi], scale=[1,1,1], configuration=0, waitForConfirmation=True)
         stopSignCamera.possess()
     elif(Rotation == 4):
-        stopSignCamera.spawn_id(actorNumber=1, location=[X-roadLength, Y-distanceFromSign, 2], rotation=[0, 0, math.pi/2 - angleToStopSign])
+        stopSignCamera.spawn_id(actorNumber=1, location=[X-roadWidth, Y-distanceFromSign, 2], rotation=[0, 0, math.pi/2 - angleToStopSign])
         stop.spawn_id(actorNumber=1, location=[X, Y, 0.0], rotation=[0,0, (3 * math.pi)/2], scale=[1,1,1], configuration=0, waitForConfirmation=True)
         stopSignCamera.possess()
 
