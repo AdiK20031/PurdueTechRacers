@@ -6,6 +6,11 @@ import time
 
 import random as rand
 
+import cv2
+
+from PIL import Image
+
+import numpy as np
 
 from qvl.qlabs import QuanserInteractiveLabs
 
@@ -89,6 +94,8 @@ def stop_sign(qlabs):
         stopSignCamera.spawn_id(actorNumber=1, location=[X+roadWidth, Y+distanceFromSign, 2], rotation=[0, 0, ((3 * math.pi)/2) - angleToStopSign])
         stop.spawn_id(actorNumber=1, location=[X, Y, 0.0], rotation=[0,0, math.pi/2], scale=[1,1,1], configuration=0, waitForConfirmation=True)
         stopSignCamera.possess()
+        stopSignCamera.set_image_capture_resolution(256, 256)
+        stopsignimage = stopSignCamera.get_image()
     elif(Rotation == 3):
         stopSignCamera.spawn_id(actorNumber=1, location=[X-distanceFromSign, Y-roadWidth, 2], rotation=[0, 0, angleToStopSign])
         stop.spawn_id(actorNumber=1, location=[X, Y, 0.0], rotation=[0,0, math.pi], scale=[1,1,1], configuration=0, waitForConfirmation=True)
@@ -114,7 +121,13 @@ def stop_sign(qlabs):
 
     time.sleep(1)
 
+    StopSignImage = stopsignimage[1]
 
+    StopSignImageArray = np.array(StopSignImage)
+    StopSignImageArrayRGB = cv2.cvtColor(StopSignImageArray, cv2.COLOR_BGR2RGB)
+
+    img = Image.fromarray(StopSignImageArrayRGB)
+    img.save('output1.png')
 
 if __name__ == "__main__":
 
