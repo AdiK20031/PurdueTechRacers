@@ -1,14 +1,20 @@
+# author:Yu-Hung Wang
+# Date: 04/01/2024
+# Description: This code generates images that contains traffic lights in qlab.
+
+# Library used 
 import math
 import numpy as np
 import random as rand
 from PIL import Image
 import cv2
-
+# qlab library
 from qvl.qlabs import QuanserInteractiveLabs
 from qvl.free_camera import QLabsFreeCamera
 from qvl.traffic_light import QLabsTrafficLight
 
 # Global variable for the program
+IMAGE_SIZE = [640, 480] # [width, height]
 IMAGE_STORAGE = "D:\\school_stuff\\competition\\PicGen\\traffic_light"
 IMAGE_COUNT = 50 # the number of image you want
 
@@ -46,16 +52,29 @@ def spawnCamera(camera,pos, rota):
 #spawn traffic light in the sence
 def spawnTrafficLight(light, camera ,pos, rota):
     # spawn a traffic light
+    lightState = rand.randint(0,2)
+
+    print(lightState)
+    if lightState == 0:
+        print("red")
+        light.set_state(state=light.STATE_RED,waitForConfirmation=True)
+    elif lightState == 1:
+        light.set_state(state=light.STATE_GREEN,waitForConfirmation=True)
+    else:
+        light.set_state(state=light.STATE_YELLOW,waitForConfirmation=True)
+    
     light.spawn_id(actorNumber=1, location=pos, rotation=rota, scale=[1,1,1], configuration=0, waitForConfirmation=True)
 
     # setting camer resolution
-    camera.set_image_capture_resolution()
+    camera.set_image_capture_resolution(width = IMAGE_SIZE[0], height = IMAGE_SIZE[1])
     img =  camera.get_image()   # get image as an array
     light.destroy()
     
     return img
 
+# this where the program is excuting
 def main():
+    # some intialization
     qlabs = QuanserInteractiveLabs()
     camera0 = QLabsFreeCamera(qlabs)
     light = QLabsTrafficLight(qlabs)
