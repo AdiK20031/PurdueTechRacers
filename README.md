@@ -33,7 +33,9 @@ Please put comments in your code with your name and what your code does.
 [Documentation for keras](https://keras.io/api/) \
 https://thomasfermi.github.io/Algorithms-for-Automated-Driving/Introduction/intro.html \
 https://github.com/Amin-Tgz/awesome-CARLA?tab=readme-ov-file \
-https://www.labellerr.com/blog/real-time-lane-detection-for-self-driving-cars-using-opencv/ 
+https://www.labellerr.com/blog/real-time-lane-detection-for-self-driving-cars-using-opencv/ \
+https://www.youtube.com/watch?v=eLTLtUVuuy4 \
+https://www.youtube.com/watch?v=eLTLtUVuuy4 \
 
 To pull from git\
 `git pull` 
