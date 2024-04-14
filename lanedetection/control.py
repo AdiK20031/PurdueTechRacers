@@ -10,6 +10,9 @@ import cv2
 import random
 import matplotlib.pyplot as plt
 
+from PIL import Image
+
+
 # environment objects
 
 from qvl.qlabs import QuanserInteractiveLabs
@@ -28,7 +31,7 @@ import pal.resources.rtmodels as rtmodels
 #endregion
 
 #Function to setup QLabs, Spawn in QCar, and run real time model
-def main(initialPosition, initialOrientation):
+def main(initialPosition, initialOrientation, num):
     # Try to connect to Qlabs
 
     os.system('cls')
@@ -116,7 +119,7 @@ def main(initialPosition, initialOrientation):
     mySpline.spawn_degrees ([-2.075 + x_offset, y_offset, 0.01], [0, 0, 0], [0.27, 0.02, 0.001], False)
     car2.possess(car2.CAMERA_RGB)
     car2_image = car2.get_image(camera=car2.CAMERA_CSI_FRONT)
-    lane_detection(car2_image[1])
+    #lane_detection(car2_image[1], num)
     
 
     return car2
@@ -136,14 +139,20 @@ def region_of_interest(image):
     return masked_image
 
 
-def lane_detection(image):
-    img = np.copy(image)
-    cv2.imshow("result", img)
-    cv2.waitKey(0)
+#def lane_detection(image, num):
+#    imageRGB = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+#    img = Image.fromarray(imageRGB)
+#    
+#    img.save("laneimages\lane"+ num + ".png")
+#    cannyTransform = canny(image)
+#    cannyimg = Image.fromarray(cannyTransform)
+#    cannyimg.save("laneimages\lane"+ num + "canny" + ".png")
+
+    
     
 
 
 if __name__ == '__main__':
-    car2 = main(initialPosition=[-.5, -1.1,0], initialOrientation=[0,0,0])
+    car2 = main(initialPosition=[2.2,0, 0], initialOrientation=[0,0, math.pi/2], num = "50")
     
    
