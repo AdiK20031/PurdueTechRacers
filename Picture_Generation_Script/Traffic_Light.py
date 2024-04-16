@@ -14,8 +14,8 @@ from qvl.free_camera import QLabsFreeCamera
 from qvl.traffic_light import QLabsTrafficLight
 
 # Global variable for the program
-IMAGE_SIZE = [640, 480] # [width, height]
-IMAGE_STORAGE = "D:\\school_stuff\\competition\\PicGen\\traffic_light"
+IMAGE_SIZE = [250, 250] # [width, height]
+IMAGE_STORAGE = "C:\\Users\\thoma\PurdueTechRacers\\Generated_Image\\traffic_light"
 IMAGE_COUNT = 50 # the number of image you want
 
 # Camera angle settings
@@ -109,7 +109,7 @@ def main():
         img = Image.fromarray(StopSignImageArrayRGB)
         
         # making the name of the file 
-        fname = "\\traffic_light_" + str(i+1) + ".png"
+        fname = "\\traffic_light_" + str(i) + ".png"
         # building the file
         img.save(IMAGE_STORAGE+fname)
 
