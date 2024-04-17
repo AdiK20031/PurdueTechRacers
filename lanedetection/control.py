@@ -119,7 +119,7 @@ def main(initialPosition, initialOrientation, num):
     mySpline.spawn_degrees ([-2.075 + x_offset, y_offset, 0.01], [0, 0, 0], [0.27, 0.02, 0.001], False)
     car2.possess(car2.CAMERA_RGB)
     car2_image = car2.get_image(camera=car2.CAMERA_CSI_FRONT)
-    #lane_detection(car2_image[1], num)
+    lane_detection(car2_image[1], num)
     
 
     return car2
@@ -139,20 +139,20 @@ def region_of_interest(image):
     return masked_image
 
 
-#def lane_detection(image, num):
-#    imageRGB = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-#    img = Image.fromarray(imageRGB)
-#    
-#    img.save("laneimages\lane"+ num + ".png")
-#    cannyTransform = canny(image)
-#    cannyimg = Image.fromarray(cannyTransform)
-#    cannyimg.save("laneimages\lane"+ num + "canny" + ".png")
+def lane_detection(image, num):
+    imageRGB = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    img = Image.fromarray(imageRGB)
+    
+    img.save("laneimages\lane"+ num + ".png")
+    cannyTransform = canny(image)
+    cannyimg = Image.fromarray(cannyTransform)
+    cannyimg.save("laneimages\lane"+ num + "canny" + ".png")
 
     
     
 
 
 if __name__ == '__main__':
-    car2 = main(initialPosition=[2.2,0, 0], initialOrientation=[0,0, math.pi/2], num = "50")
+    car2 = main(initialPosition=[2.25,3.85, 0], initialOrientation=[0,0, 3*math.pi/4], num = "73")
     
    
