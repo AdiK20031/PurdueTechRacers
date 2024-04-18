@@ -14,8 +14,8 @@ from qvl.free_camera import QLabsFreeCamera
 from qvl.traffic_light import QLabsTrafficLight
 
 # Global variable for the program
-IMAGE_SIZE = [250, 250] # [width, height]
-IMAGE_STORAGE = "C:\\Users\\thoma\PurdueTechRacers\\Generated_Image\\traffic_light"
+IMAGE_SIZE = [256, 256] # [width, height]
+IMAGE_STORAGE = "C:\\Users\\wang5350\\Competition\\data"
 IMAGE_COUNT = 50 # the number of image you want
 
 # Camera angle settings
