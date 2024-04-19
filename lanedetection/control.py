@@ -8,8 +8,7 @@ import math
 import struct
 import cv2
 import random
-import matplotlib.pyplot as plt
-
+#import matplotlib.pyplot as plt
 from PIL import Image
 
 
@@ -25,7 +24,7 @@ from qvl.walls import QLabsWalls
 from qvl.flooring import QLabsFlooring
 from qvl.stop_sign import QLabsStopSign
 from qvl.crosswalk import QLabsCrosswalk
-import pal.resources.rtmodels as rtmodels
+#import pal.resources.rtmodels as rtmodels
 
 
 #endregion
@@ -153,6 +152,6 @@ def lane_detection(image, num):
 
 
 if __name__ == '__main__':
-    car2 = main(initialPosition=[1.25,4.43, 0], initialOrientation=[0,0, -math.pi], num = "82")
+    car2 = main(initialPosition=[2.2, 0.15, 0], initialOrientation=[0,0, math.pi/2], num = "100")
     
    
