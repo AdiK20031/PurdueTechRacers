@@ -153,6 +153,6 @@ def lane_detection(image, num):
 
 
 if __name__ == '__main__':
-    car2 = main(initialPosition=[2.25,3.85, 0], initialOrientation=[0,0, 3*math.pi/4], num = "73")
+    car2 = main(initialPosition=[1.25,4.43, 0], initialOrientation=[0,0, -math.pi], num = "82")
     
    
