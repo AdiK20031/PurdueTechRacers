@@ -10,6 +10,12 @@ import cv2
 import random
 #import matplotlib.pyplot as plt
 from PIL import Image
+from unet import UNet 
+from predict import predict_img
+from predict import mask_to_image
+import torch
+from utils.utils import plot_img_and_mask
+
 
 
 # environment objects
@@ -26,8 +32,46 @@ from qvl.stop_sign import QLabsStopSign
 from qvl.crosswalk import QLabsCrosswalk
 #import pal.resources.rtmodels as rtmodels
 
+def perspectivetranform(mask):
+    im2arr = np.array(mask)
+    pts1 = np.float32([[78,410], [780,410],[300,230],[500,230]])
+    pts2 = np.float32([[250, 600], [650,600], [40,0], [800,0]])  
+    matrix = cv2.getPerspectiveTransform(pts1, pts2)
+    result = cv2.warpPerspective(im2arr, matrix, (800, 600))
+    return Image.fromarray(result)
 
-#endregion
+def pathfinding(coordinates, speed):
+    wheelbase = 100
+    
+
+    l_d = 50
+    px = 350
+    alpha = np.arctan2((coordinates[px] - coordinates[599]), px)
+    #if ((coordinates[px] <= (coordinates[599] + 5)) & (coordinates[px] >= (coordinates[599] -5))):
+    #    return 0
+    #else:
+    angle = np.arctan((2 * wheelbase * np.sin(alpha))/l_d)
+    return angle
+   
+
+def coordinates(mask):
+    maskL= mask.convert('L')
+    numpy_data = np.array(maskL)
+    rows, cols = numpy_data.shape
+    white_counts = []
+    white_centers = []
+    for i in range(rows):
+        white_pixels = [j for j, pixel in enumerate(numpy_data[i]) if pixel == 255]
+        white_counts.append(len(white_pixels))
+        if white_pixels:
+            white_centers.append(sum(white_pixels) / len(white_pixels))
+        else:
+            white_centers.append(None)
+
+    return white_centers
+    
+
+
 
 #Function to setup QLabs, Spawn in QCar, and run real time model
 def main(initialPosition, initialOrientation, num):
@@ -116,9 +160,13 @@ def main(initialPosition, initialOrientation, num):
     mySpline = QLabsBasicShape(qlabs)
     mySpline.spawn_degrees ([2.05 + x_offset, -1.5 + y_offset, 0.01], [0, 0, 0], [0.27, 0.02, 0.001], False)
     mySpline.spawn_degrees ([-2.075 + x_offset, y_offset, 0.01], [0, 0, 0], [0.27, 0.02, 0.001], False)
-    car2.possess(car2.CAMERA_RGB)
-    car2_image = car2.get_image(camera=car2.CAMERA_CSI_FRONT)
-    lane_detection(car2_image[1], num)
+    #car2.possess(car2.CAMERA_RGB)
+    while True:
+        car2_image = car2.get_image(camera=car2.CAMERA_CSI_FRONT)
+        angle = carpositioning(car2_image[1], num)
+    
+        car2.set_velocity_and_request_state_degrees(forward = 1, turn = math.degrees(angle), headlights = False, leftTurnSignal = False, rightTurnSignal = False, brakeSignal = False, reverseSignal =  False)
+        
     
 
     return car2
@@ -138,20 +186,35 @@ def region_of_interest(image):
     return masked_image
 
 
-def lane_detection(image, num):
+def carpositioning(image, num):
     imageRGB = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     img = Image.fromarray(imageRGB)
-    
-    img.save("lane"+ num + ".png")
-    cannyTransform = canny(image)
-    cannyimg = Image.fromarray(cannyTransform)
-    #cannyimg.save("lane"+ num + "canny" + ".png")
+    net = UNet(n_channels=3, n_classes=2, bilinear=False)
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    state_dict = torch.load('MODEL.pth', map_location=device)
+    mask_values = state_dict.pop('mask_values', [0, 1])
+    net.load_state_dict(state_dict)
+    mask = predict_img(net=net,
+                           full_img=img,
+                           scale_factor=0.5,
+                           out_threshold=0.5,
+                           device=device)
 
+    print("ran model")
+    maskFull = mask_to_image(mask, mask_values)
+    
+    maskTransform = perspectivetranform(maskFull)
+    #maskTransform.save('output.png')
+    carcoordinates = coordinates(maskTransform)
+    angle = pathfinding(carcoordinates, 10)
+    print(angle)
+    return angle
     
     
+
 
 
 if __name__ == '__main__':
-    car2 = main(initialPosition=[-1.959, 2.44, 0.0], initialOrientation=[0,0,-math.pi/2], num = "predict")
+    car2 = main(initialPosition=[2.2,2.5, 0.0], initialOrientation=[0,0,math.pi/2], num = "predict")
     
    
