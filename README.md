@@ -11,10 +11,10 @@ Marked below is a checklist for the tasks these 3 teams will have to accomplish.
 
 ## Obstacle detection
 
-- [ ] Generate training images in QCar (both from LIDAR and camera). 
-- [ ] Label the training images.
-- [ ] Creating a model and feeding these images into a model
-- [ ] Create a loop to break car if obstacle is detected.
+- [ ] Generate training images in QCar (both from LIDAR and camera). (malformed images in repo) 
+- [X] Label the training images.
+- [X] Creating a model and feeding these images into a model
+- [X] Create a loop to break car if obstacle is detected.
 
 A script has been created to generate training images, simply run either stopsign.py or traffic_light.py and you will be able to commit pictures. Please make sure to pull the latest files from git using `git pull` before adding new images in order to not overwrite files.
 ## Car control
@@ -23,7 +23,7 @@ TBD
 
 ## Lane control
 
-- [ ] Create code to turn car if lane is detected.
+- [X] Create code to turn car if lane is detected.
 
 ### NOTES
 
